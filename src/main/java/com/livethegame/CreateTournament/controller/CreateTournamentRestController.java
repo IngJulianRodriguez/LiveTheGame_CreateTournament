@@ -41,5 +41,8 @@ public class CreateTournamentRestController {
             return ResponseEntity.status(500).body("Error interno del servidor");
         }
     }
-
+    @GetMapping("/test-create")
+    public ResponseEntity<?> testCreateTournament(){
+        return ResponseEntity.ok().build();
+    }
 }
