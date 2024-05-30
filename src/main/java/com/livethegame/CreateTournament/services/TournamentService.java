@@ -50,7 +50,11 @@ public class TournamentService {
         if (optionalParamsTournamentTypesFreeId.isEmpty()) {
             throw new ParamsNotFoundException("Parametro tournament.types.free.id no encontrado");
         }
-
+        Optional<Params> optionalParamsTournamentCommissionValue = paramsRepository.findByName("tournament.commission.value");
+        if (optionalParamsTournamentCommissionValue.isEmpty()) {
+            throw new ParamsNotFoundException("Parametro tournament.commission.value no encontrado");
+        }
+        int commission = optionalParamsTournamentCommissionValue.get().getValueAsInt();
         if(optionalParamsTournamentTypesFreeId.get().getValueAsLong()
                 == tournamentRequest.getTournament_type_id()){
             Optional<Users> optionalUser = userRepository.findById(tournamentRequest.getUser_id());
@@ -69,7 +73,7 @@ public class TournamentService {
                 userRepository.save(user);
             }
         }
-        Tournaments tournamentRequestToTournament = Mapper.TournamentRequestToTournament(tournamentRequest,optionalCategory.get(),optionalTournamentType.get());
+        Tournaments tournamentRequestToTournament = Mapper.TournamentRequestToTournament(tournamentRequest,optionalCategory.get(),optionalTournamentType.get(),commission);
         Tournaments save = tournamentRepository.save(tournamentRequestToTournament);
         TournamentResponse tournamentToTournamentResponse = tournamentResponseMapper.TournamentToTournamentResponse(save);
 

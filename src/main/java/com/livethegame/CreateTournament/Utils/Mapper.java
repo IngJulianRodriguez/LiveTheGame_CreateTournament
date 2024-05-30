@@ -6,12 +6,13 @@ import com.livethegame.CreateTournament.entities.Tournaments;
 import com.livethegame.CreateTournament.entities.TournamentTypes;
 
 public  class Mapper {
-    public static Tournaments TournamentRequestToTournament(TournamentRequest source, Categories categories, TournamentTypes tournamentType){
+    public static Tournaments TournamentRequestToTournament(TournamentRequest source, Categories categories, TournamentTypes tournamentType, double commission){
         Tournaments tournament = new Tournaments();
         tournament.setStart_date(source.getStart_date());
         tournament.setStart_time(source.getStart_time());
         tournament.setCategory(categories);
         tournament.setTournament_type(tournamentType);
+        tournament.setCommission(commission);
         return tournament;
     };
 }
